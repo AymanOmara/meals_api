@@ -26,11 +26,13 @@
     <None Remove="Data\" />
     <None Remove="Dto\" />
     <None Remove="Migrations\" />
+    <None Remove="Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="Dto\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Profiles\" />
   </ItemGroup>
 </Project>

@@ -2,14 +2,12 @@
 
 namespace meals.Dto
 {
-    public class CategoryDTO
-    {
-        public int Id { get; set; }
+	public class WriteOnlyCategoryDto
+	{
         [Required]
         public String Name { get; set; }
         [Required]
         public String ImagUrl { get; set; }
-
     }
 }
 
