@@ -2,18 +2,18 @@
 
 namespace meals.Data
 {
-	public class Category
-	{
-		[Key]
-		public int Id { get; set; }
+    public class Category
+    {
+        [Key]
+        public int Id { get; set; }
 
-		[Required]
-		public String Name { get; set; } = null!;
+        [Required]
+        public String Name { get; set; } = null!;
 
-		[Required]
-		public String ImagUrl { get; set; } = null!;
+        [Required]
+        public String ImagUrl { get; set; } = null!;
 
-		public List<Meal> Meals { get; set; } = new List<Meal>(){};
+        public List<MealEntity> Meals { get; set; } = new List<MealEntity>() { };
     }
 }
 

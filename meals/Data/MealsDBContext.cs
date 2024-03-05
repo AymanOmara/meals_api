@@ -9,6 +9,10 @@ namespace meals.Data
 
 		}
 		public DbSet<Category> Categories { get; set; }
+
+        public DbSet<MealEntity> Meals { get; set; }
+		public DbSet<Ingredient> Ingredients { get; set; }
+
 	}
 }
 

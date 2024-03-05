@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using meals.Data;
 
@@ -11,9 +12,11 @@ using meals.Data;
 namespace meals.Migrations
 {
     [DbContext(typeof(MealsDBContext))]
-    partial class MealsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240304134413_ChangeMealTableName")]
+    partial class ChangeMealTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,16 +54,13 @@ namespace meals.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredient");
                 });
 
             modelBuilder.Entity("meals.Data.IngredientRecipe", b =>
@@ -138,7 +138,7 @@ namespace meals.Migrations
             modelBuilder.Entity("meals.Data.IngredientRecipe", b =>
                 {
                     b.HasOne("meals.Data.Ingredient", "Ingredient")
-                        .WithMany("IngredientRecips")
+                        .WithMany()
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -175,11 +175,6 @@ namespace meals.Migrations
             modelBuilder.Entity("meals.Data.Category", b =>
                 {
                     b.Navigation("Meals");
-                });
-
-            modelBuilder.Entity("meals.Data.Ingredient", b =>
-                {
-                    b.Navigation("IngredientRecips");
                 });
 
             modelBuilder.Entity("meals.Data.MealEntity", b =>

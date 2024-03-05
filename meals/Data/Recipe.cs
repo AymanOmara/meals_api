@@ -11,7 +11,7 @@ namespace meals.Data
         public List<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>() { };
 
         [ForeignKey("MealId")]
-        public Meal? Meal { get; set; }
+        public MealEntity? Meal { get; set; }
     }
 }
 

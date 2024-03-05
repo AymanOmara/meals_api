@@ -10,6 +10,9 @@ namespace meals.Data
 		[Required]
 		public string Name { get; set; } = null!;
 
+		public bool Deleted { get; set; }
+
+		public List<IngredientRecipe>? IngredientRecips { get; set; } = new List<IngredientRecipe>();
 	}
 }
 
