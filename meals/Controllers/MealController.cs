@@ -23,10 +23,18 @@ namespace meals.Controllers
             var result = _repository.GetMeals(id);
             return Ok(_mapper.Map<List<MealDto>>(result));
         }
-        //[HttpPost("AddMeal")]
-        //public async Task<ActionResult<MealDto>> AddMeal([FromBody] CreateMealDto dto) {
-
-        //}
+        [HttpPost("AddMeal")]
+        public ActionResult<MealDto> AddMeal([FromBody] WriteOnlyMealDto dto)
+        {
+            var result = _repository.AddMeal(dto);
+            return Ok(_mapper.Map<MealDto>(result));
+        }
+        [HttpPut("UpdateMeal/{id}")]
+        public ActionResult<MealDto> UpdateMeal(int id,[FromBody] WriteOnlyMealDto dto)
+        {
+            var result = _repository.UpdateMeal(id,dto);
+            return Ok(_mapper.Map<MealDto>(result));
+        }
     }
 }
 

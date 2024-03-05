@@ -17,7 +17,7 @@ namespace meals.Controllers
             _mapper = mapper;
         }
         [HttpGet("Categories")]
-        public ActionResult<IQueryable<Category>> GetCategories()
+        public ActionResult<IQueryable<CategoryDTO>> GetCategories()
         {
             var result = _repository.GetCategories();
             return Ok(_mapper.Map<List<CategoryDTO>>(result));

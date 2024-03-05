@@ -8,8 +8,10 @@ namespace meals.Data
         [Key]
         public int Id { get; set; }
 
-        public List<IngredientRecipe> IngredientRecipes { get; set; } = new List<IngredientRecipe>() { };
+        public string Name { get; set; }
 
+        public List<IngredientRecipe> IngredientRecipes { get; set; }
+        
         [ForeignKey("MealId")]
         public MealEntity? Meal { get; set; }
     }

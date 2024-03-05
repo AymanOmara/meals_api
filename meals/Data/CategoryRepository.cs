@@ -20,13 +20,13 @@ namespace meals.Data
         public async Task DeleteCategory(int id)
         {
             var category = await GetCategoryById(id);
-            _context.Categories.Remove(category);
+            category.Deleted = true;
             _context.SaveChanges();
         }
 
         public List<Category> GetCategories()
         {
-            return _context.Categories.ToList();
+            return _context.Categories.Where(cat=>cat.Deleted == false).ToList();
         }
 
         public Category GetRandomCategory()
@@ -44,8 +44,8 @@ namespace meals.Data
             await _context.SaveChangesAsync();
             return category;
         }
-        private async Task<Category> GetCategoryById(int id) {
-            return await _context.Categories.FindAsync(id);
+        private async Task<Category?> GetCategoryById(int id) {
+            return await _context.Categories.FirstOrDefaultAsync(cat => cat.Id == id);
         }
     }
 }

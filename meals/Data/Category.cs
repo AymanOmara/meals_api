@@ -10,6 +10,8 @@ namespace meals.Data
         [Required]
         public String Name { get; set; } = null!;
 
+        public bool Deleted { get; set; }
+
         [Required]
         public String ImagUrl { get; set; } = null!;
 

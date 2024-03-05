@@ -19,14 +19,16 @@ namespace meals.Controllers
         }
 
         [HttpGet("GetIngredients")]
-        public ActionResult<IQueryable<Ingredient>> GetIngredients()
+        public ActionResult<IQueryable<GetIngredientDto>> GetIngredients()
         {
-            return Ok(_repository.GetIngredients());
+            var result = _repository.GetIngredients();
+            return Ok(_mapper.Map<List<GetIngredientDto>>(result));
         }
         [HttpPost("AddIngredient/{name}")]
-        public ActionResult<IQueryable<Ingredient>> AddIngredients(string name)
+        public ActionResult<IQueryable<GetIngredientDto>> AddIngredients(string name)
         {
-            return Ok(_repository.AddIngredient(name));
+            var result = _repository.AddIngredient(name);
+            return Ok(_mapper.Map<GetIngredientDto>(result));
         }
         [HttpDelete("DeleteIngredient/{id}")]
         public ActionResult DeleteIngredient(int id)
@@ -35,10 +37,11 @@ namespace meals.Controllers
             return Ok();
         }
         [HttpPut("UpdateIngredient")]
-        public ActionResult UpdateIngreidnet([FromBody] IngredientUpdateOnly updateOnly)
+        public ActionResult<GetIngredientDto> UpdateIngreidnet([FromBody] GetIngredientDto updateOnly)
         {
             var result = _repository.UpdateIngredient(_mapper.Map<Ingredient>(updateOnly));
-            return Ok(result);
+
+            return Ok(_mapper.Map<GetIngredientDto>(result));
         }
     }
 }

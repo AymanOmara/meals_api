@@ -2,14 +2,16 @@
 
 namespace meals.Dto
 {
-	public class MealDto
+	public class ReadRecipeDto
 	{
+        [Key]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string ImageUrl { get; set; }
 
+        public string Name { get; set; }
+
+        public List<GetIngredientRecipeDto> IngredientRecipes { get; set; }
+
+        
     }
 }
 

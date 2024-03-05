@@ -8,7 +8,8 @@ namespace meals.Profiles
     {
         public IngredientProfile()
         {
-            CreateMap<IngredientUpdateOnly, Ingredient>();
+            CreateMap<GetIngredientDto,Ingredient>();
+            CreateMap<Ingredient, GetIngredientDto>();
         }
     }
 }

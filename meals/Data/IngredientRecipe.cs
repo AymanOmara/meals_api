@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meals.Data
 {
@@ -13,8 +14,8 @@ namespace meals.Data
 		[Required]
 		public decimal IngredientCountInGM { get; set; }
 
+		[ForeignKey("RecipeId")]
 		public Recipe? Recipe { get; set; }
-
 	}
 }
 

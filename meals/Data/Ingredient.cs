@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace meals.Data
 {
@@ -12,7 +13,8 @@ namespace meals.Data
 
 		public bool Deleted { get; set; }
 
-		public List<IngredientRecipe>? IngredientRecips { get; set; } = new List<IngredientRecipe>();
+        [JsonIgnore]
+		public List<IngredientRecipe>? IngredientRecips { get; set; }
 	}
 }
 
