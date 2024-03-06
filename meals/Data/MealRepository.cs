@@ -40,5 +40,11 @@ public class MealRepository : IMealRepository
         _context.SaveChanges();
         return meal;
     }
+    public void DeleteMeal(int id) {
+        var meal = _context.Meals.Include(meal=>meal.Recipe).FirstOrDefault(meal => meal.Id == id);
+        meal.Recipe = null;
+        _context.Meals.Remove(meal);
+        _context.SaveChanges();
+    }
 }
 

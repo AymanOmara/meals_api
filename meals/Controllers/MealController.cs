@@ -30,10 +30,16 @@ namespace meals.Controllers
             return Ok(_mapper.Map<MealDto>(result));
         }
         [HttpPut("UpdateMeal/{id}")]
-        public ActionResult<MealDto> UpdateMeal(int id,[FromBody] WriteOnlyMealDto dto)
+        public ActionResult<MealDto> UpdateMeal(int id, [FromBody] WriteOnlyMealDto dto)
         {
-            var result = _repository.UpdateMeal(id,dto);
+            var result = _repository.UpdateMeal(id, dto);
             return Ok(_mapper.Map<MealDto>(result));
+        }
+        [HttpDelete("DeleteMeal/{id}")]
+        public ActionResult DeleteMeal(int id)
+        {
+            _repository.DeleteMeal(id);
+            return Ok();
         }
     }
 }

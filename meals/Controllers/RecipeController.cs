@@ -29,9 +29,16 @@ namespace meals.Controllers
             return Ok(_mapper.Map<ReadRecipeDto>(result));
         }
         [HttpDelete("DeleteRecipe/{id}")]
-        public ActionResult DeleteRecipe(int id) {
+        public ActionResult DeleteRecipe(int id)
+        {
             _repository.DeleteRecipe(id);
             return Ok();
+        }
+        [HttpPut("UpdateRecipe/{id}")]
+        public async Task<ActionResult<ReadRecipeDto>> UpdateRecipe(int id, [FromBody] AddRecipeDto dto)
+        {
+            var result = await _repository.UpdateRecipe(id, dto);
+            return Ok(_mapper.Map<ReadRecipeDto>(result));
         }
     }
 }
