@@ -20,8 +20,8 @@ namespace meals.Data
 
         public void DeleteIngredient(int id)
         {
-            var ingredient = _context.Ingredients.FirstOrDefault(ing => ing.Id == id);
-            ingredient.Deleted = true;
+            //var ingredient = _context.Ingredients.FirstOrDefault(ing => ing.Id == id);
+            //ingredient.Deleted = true;
             _context.SaveChanges();
         }
 

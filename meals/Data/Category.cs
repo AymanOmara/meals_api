@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meals.Data
 {
@@ -15,7 +16,8 @@ namespace meals.Data
         [Required]
         public String ImagUrl { get; set; } = null!;
 
-        public List<MealEntity> Meals { get; set; } = new List<MealEntity>() { };
+        [ForeignKey("MealId")]
+        public ICollection<MealEntity>? Meals { get; set; }
     }
 }
 

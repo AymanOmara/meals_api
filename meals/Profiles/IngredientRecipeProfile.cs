@@ -9,7 +9,10 @@ namespace meals.Profiles
 		public IngredientRecipeProfile()
 		{
 			CreateMap<IngredientRecipe, GetIngredientRecipeDto>();
-		}
-	}
+            CreateMap<AddIngredientRecipeDto, IngredientRecipe>();
+            CreateMap<IngredientRecipe, AddIngredientRecipeDto>();
+
+        }
+    }
 }
 

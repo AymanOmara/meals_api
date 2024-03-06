@@ -8,7 +8,8 @@ namespace meals.Profiles
 	{
 		public MealProfile()
 		{
-			CreateMap<MealEntity, MealDto>();
+			CreateMap<MealEntity, ReadOnlyMealDto>();
+			CreateMap<WriteOnlyMealDto, MealEntity>();
 		}
 	}
 }

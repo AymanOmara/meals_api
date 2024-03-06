@@ -12,8 +12,8 @@ using meals.Data;
 namespace meals.Migrations
 {
     [DbContext(typeof(MealsDBContext))]
-    [Migration("20240305090943_AddIngreients")]
-    partial class AddIngreients
+    [Migration("20240306112842_InitailMigration")]
+    partial class InitailMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace meals.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ImagUrl")
                         .IsRequired()
@@ -53,6 +56,9 @@ namespace meals.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -86,7 +92,7 @@ namespace meals.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("IngredientRecipe");
+                    b.ToTable("IngredientRecipes");
                 });
 
             modelBuilder.Entity("meals.Data.MealEntity", b =>
@@ -123,16 +129,13 @@ namespace meals.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MealId")
-                        .IsUnique()
-                        .HasFilter("[MealId] IS NOT NULL");
-
-                    b.ToTable("Recipe");
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("meals.Data.IngredientRecipe", b =>
@@ -163,15 +166,6 @@ namespace meals.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("meals.Data.Recipe", b =>
-                {
-                    b.HasOne("meals.Data.MealEntity", "Meal")
-                        .WithOne("Recipe")
-                        .HasForeignKey("meals.Data.Recipe", "MealId");
-
-                    b.Navigation("Meal");
-                });
-
             modelBuilder.Entity("meals.Data.Category", b =>
                 {
                     b.Navigation("Meals");
@@ -180,12 +174,6 @@ namespace meals.Migrations
             modelBuilder.Entity("meals.Data.Ingredient", b =>
                 {
                     b.Navigation("IngredientRecips");
-                });
-
-            modelBuilder.Entity("meals.Data.MealEntity", b =>
-                {
-                    b.Navigation("Recipe")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("meals.Data.Recipe", b =>

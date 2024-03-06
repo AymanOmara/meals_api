@@ -5,7 +5,7 @@ namespace meals.Dto
 	public class AddIngredientRecipeDto
 	{
         [Required]
-        public int Id { get; set; }
+        public int IngredientId { set; get; }
 
         [Required]
         public decimal IngredientCountInGM { get; set; }

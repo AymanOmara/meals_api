@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace meals.Data
 {
@@ -8,12 +7,10 @@ namespace meals.Data
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public List<IngredientRecipe> IngredientRecipes { get; set; }
+        public ICollection<IngredientRecipe>? IngredientRecipes { get; set; }
         
-        [ForeignKey("MealId")]
-        public MealEntity? Meal { get; set; }
     }
 }
 

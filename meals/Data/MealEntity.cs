@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace meals.Data
 {
@@ -16,12 +15,17 @@ namespace meals.Data
         public string ImageUrl { get; set; } = null!;
 
 		
-		[ForeignKey("CategoryId")]
-		public Category Category { get; set; } = null!;
+		public Category? Category { get; set; }
 
-        [Required]
-		public Recipe? Recipe { get; set; }
+        [ForeignKey("CategoryId")]
+        public int? CategoryId { get; set; }
 
-	}
+        
+        public Recipe? Recipe { get; set; }
+
+		[ForeignKey("RecipeId")]
+        public int? RecipeId { get; set; }
+
+    }
 }
 

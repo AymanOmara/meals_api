@@ -17,23 +17,23 @@ namespace meals.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetMeals/{id}")]
-        public ActionResult<IQueryable<MealDto>> GetMeals(int id)
+        [HttpGet("GetMealz/{CategoryId}")]
+        public ActionResult<IQueryable<ReadOnlyMealDto>> GetMealsByCategoryId(int CategoryId)
         {
-            var result = _repository.GetMeals(id);
-            return Ok(_mapper.Map<List<MealDto>>(result));
+            var result = _repository.GetMealsByCategoryId(CategoryId);
+            return Ok(_mapper.Map<List<ReadOnlyMealDto>>(result));
         }
         [HttpPost("AddMeal")]
-        public ActionResult<MealDto> AddMeal([FromBody] WriteOnlyMealDto dto)
+        public ActionResult<ReadOnlyMealDto> AddMeal([FromBody] WriteOnlyMealDto dto)
         {
             var result = _repository.AddMeal(dto);
-            return Ok(_mapper.Map<MealDto>(result));
+            return Ok(_mapper.Map<ReadOnlyMealDto>(result));
         }
         [HttpPut("UpdateMeal/{id}")]
-        public ActionResult<MealDto> UpdateMeal(int id, [FromBody] WriteOnlyMealDto dto)
+        public ActionResult<ReadOnlyMealDto> UpdateMeal(int id, [FromBody] WriteOnlyMealDto dto)
         {
             var result = _repository.UpdateMeal(id, dto);
-            return Ok(_mapper.Map<MealDto>(result));
+            return Ok(_mapper.Map<ReadOnlyMealDto>(result));
         }
         [HttpDelete("DeleteMeal/{id}")]
         public ActionResult DeleteMeal(int id)

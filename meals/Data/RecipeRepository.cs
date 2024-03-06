@@ -1,4 +1,5 @@
-﻿using meals.Dto;
+﻿using AutoMapper;
+using meals.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace meals.Data
@@ -6,10 +7,12 @@ namespace meals.Data
     public class RecipeRepository : IRecipeRepository
     {
         private readonly MealsDBContext _context;
+        private readonly IMapper _imapper;
 
-        public RecipeRepository(MealsDBContext context)
+        public RecipeRepository(MealsDBContext context, IMapper imapper)
         {
             _context = context;
+            _imapper = imapper;
         }
 
         public void DeleteRecipe(int id)
@@ -21,50 +24,24 @@ namespace meals.Data
 
         public List<Recipe> GetRecipes()
         {
-            var recirpeis = _context.Recipes.Include(r => r.IngredientRecipes).ThenInclude(x => x.Ingredient).Include(rec => rec.Meal).ToList();
+            var recirpeis = _context.Recipes
+                .Include(r => r.IngredientRecipes)
+                .ThenInclude(x => x.Ingredient).ToList();
 
             return recirpeis;
         }
         public async Task<Recipe> AddRecipe(AddRecipeDto recipeDto)
         {
-            List<IngredientRecipe> ingredientRecipes = new();
-            foreach (var ingredient in recipeDto.IngredientRecipes)
-            {
-                IngredientRecipe ingredientRecipe = new() { Ingredient = _context.Ingredients.FirstOrDefault(ing => ing.Id == ingredient.Id), IngredientCountInGM = ingredient.IngredientCountInGM };
-                ingredientRecipes.Add(ingredientRecipe);
-                _context.IngredientRecipes.Add(ingredientRecipe);
-            }
-            await _context.SaveChangesAsync();
-            Recipe recipe = new() { IngredientRecipes = ingredientRecipes, Name = recipeDto.Name, };
+            Recipe recipe = _imapper.Map<Recipe>(recipeDto);
             _context.Recipes.Add(recipe);
-            _context.SaveChanges();
-            foreach (var v in ingredientRecipes)
-            {
-                v.Recipe = recipe;
-                _context.SaveChanges();
-            }
+            await _context.SaveChangesAsync();
             return recipe;
         }
         public async Task<Recipe> UpdateRecipe(int id, AddRecipeDto recipeDto)
         {
-            List<IngredientRecipe> ingredientRecipes = new();
-            foreach (var ingredient in recipeDto.IngredientRecipes)
-            {
-                IngredientRecipe ingredientRecipe = new() { Ingredient = _context.Ingredients.FirstOrDefault(ing => ing.Id == ingredient.Id), IngredientCountInGM = ingredient.IngredientCountInGM };
-                ingredientRecipes.Add(ingredientRecipe);
-                _context.IngredientRecipes.Add(ingredientRecipe);
-            }
-            await _context.SaveChangesAsync();
-            Recipe recipe = _context.Recipes.FirstOrDefault(recipe => recipe.Id == id);
-            recipe.IngredientRecipes = ingredientRecipes;
-            recipe.Name = recipeDto.Name;
+            Recipe recipe = _imapper.Map<Recipe>(recipeDto);
             _context.Entry(recipe).State = EntityState.Modified;
-            _context.SaveChanges();
-            foreach (var v in ingredientRecipes)
-            {
-                v.Recipe = recipe;
-                _context.SaveChanges();
-            }
+            await _context.SaveChangesAsync();
             return recipe;
         }
     }
